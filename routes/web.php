@@ -37,11 +37,11 @@ use Symfony\Component\HttpFoundation\Request;
 
 Route::middleware('auth', '2fa', 'user_has_block')->group(function () {
     Route::get('/', [HomeController::class, 'index'])->name('dashboard');
-    Route::get('/muamail', [HomeController::class, 'muamail'])->name('muamail');
+    // Route::get('/muamail', [HomeController::class, 'muamail'])->name('muamail');
     Route::get('baiviet', [HomeController::class, 'baiviet'])->name('baiviet');
     Route::get('posts/show/{slug}', [PostController::class, 'show'])->name('posts.show');
     Route::post('comment', [CommentController::class, 'store'])->name('posts.comment');
-    Route::get('muahang/{id}', [HomeController::class, 'muahang'])->name('home.muahang');
+    // Route::get('muahang/{id}', [HomeController::class, 'muahang'])->name('home.muahang');
 
     Route::group(["prefix" => "two_face_auths"], function () {
         Route::get("/", [TwoFaceAuthsController::class, 'index'])->name("2fa_setting");
