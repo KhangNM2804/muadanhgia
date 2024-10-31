@@ -91,9 +91,9 @@ if (!function_exists('get_unread_tickets')) {
     function get_unread_tickets()
     {
         if (Auth::user()->role == 1) {
-            return Ticket::whereIn('status', [1,2])->count();
+            return Ticket::whereIn('status', [1, 2])->count();
         } else {
-            return Ticket::where('user_id',Auth::user()->id)->whereIn('status', [1,3])->count();
+            return Ticket::where('user_id', Auth::user()->id)->whereIn('status', [1, 3])->count();
         }
     }
 }
@@ -200,23 +200,23 @@ function generate_vietqr($acqId, $accountNo, $accountName)
     // get token
     $content = json_decode(vietqr_cURL("https://vietqr.net/portal-service/api/data/generate"));
     $token = $content->data;
-    
+
     $currentDate = date("Ymd");
     $key = "{$currentDate}{$token}";
 
     // get qr
     $payload = array(
         'isMask' => 0,
-        'acqId' => $acqId,//"970436", // id bank
+        'acqId' => $acqId, //"970436", // id bank
         'accountNo' => $accountNo,
         'accountName' => $accountName,
         'amount' => "100000",
-        'addInfo' => getSetting('bank_syntax'). " " . Auth::user()->id
+        'addInfo' => getSetting('bank_syntax') . " " . Auth::user()->id
     );
     $cipherText = vietqr_encrypt(json_encode($payload), $key);
     $content = json_decode(vietqr_cURL("https://vietqr.net/portal-service/v1/qr-ibft/generate", array('payload' => $cipherText), $headers = array("Authorization: Bearer $token")));
     $res = $content->data ?? null;
-    if($res){
+    if ($res) {
         $data = json_decode(vietqr_decrypt($res, $key));
 
         return $data->qrBase64 ?? null;
@@ -226,68 +226,71 @@ function generate_vietqr($acqId, $accountNo, $accountName)
 }
 
 // functions
-function vietqr_cURL($url, $data = array(), $headers = []) {
+function vietqr_cURL($url, $data = array(), $headers = [])
+{
     $ch = curl_init($url);
-	$defaultHeaders = array(
-		"User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.114 Safari/537.36", 
-		"Referer: https://vietqr.net/", 
-		"Origin: https://vietqr.net", 
-		"Content-Type: application/json"
-	);
-	$headers = array_merge($defaultHeaders, $headers);
-	$ch = curl_init($url);
-	if($data && sizeof($data) > 0) {
-		curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($data));
-	}
-	curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
-	curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-	$result = curl_exec($ch);
-	curl_close($ch);
-	
-	return $result;
+    $defaultHeaders = array(
+        "User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.114 Safari/537.36",
+        "Referer: https://vietqr.net/",
+        "Origin: https://vietqr.net",
+        "Content-Type: application/json"
+    );
+    $headers = array_merge($defaultHeaders, $headers);
+    $ch = curl_init($url);
+    if ($data && sizeof($data) > 0) {
+        curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($data));
+    }
+    curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    $result = curl_exec($ch);
+    curl_close($ch);
+
+    return $result;
 }
 
-function vietqr_encrypt($string, $pass) {
-	$salt = openssl_random_pseudo_bytes(8);
-	$salted = '';
-	$dx = '';
-	$key_length = (int) (256 / 8);
-	$block_length = 16;
-	$salted_length = $key_length + $block_length;
+function vietqr_encrypt($string, $pass)
+{
+    $salt = openssl_random_pseudo_bytes(8);
+    $salted = '';
+    $dx = '';
+    $key_length = (int) (256 / 8);
+    $block_length = 16;
+    $salted_length = $key_length + $block_length;
 
-	while (strlen($salted) < $salted_length) {
-		$dx = md5($dx.$pass.$salt, true);
-		$salted .= $dx;
-	}
+    while (strlen($salted) < $salted_length) {
+        $dx = md5($dx . $pass . $salt, true);
+        $salted .= $dx;
+    }
 
-	$key = substr($salted, 0, $key_length);
-	$iv = substr($salted, $key_length, $block_length);
-	$encrypted = openssl_encrypt($string, "aes-256-cbc", $key, true, $iv);
+    $key = substr($salted, 0, $key_length);
+    $iv = substr($salted, $key_length, $block_length);
+    $encrypted = openssl_encrypt($string, "aes-256-cbc", $key, true, $iv);
 
-	return base64_encode('Salted__'.$salt.$encrypted);
+    return base64_encode('Salted__' . $salt . $encrypted);
 }
-	
-function vietqr_decrypt($string, $pass) {
-	$key_length = (int) (256 / 8);
-	$block_length = 16;
-	$data = base64_decode($string);
-	$salt = substr($data, 8, 8);
-	$encrypted = substr($data, 16);
-	$rounds = 3;
-	$data00 = $pass.$salt;
-	$md5_hash = array();
-	$md5_hash[0] = md5($data00, true);
-	$result = $md5_hash[0];
 
-	for ($i = 1; $i < $rounds; $i++) {
-		$md5_hash[$i] = md5($md5_hash[$i - 1].$data00, true);
-		$result .= $md5_hash[$i];
-	}
+function vietqr_decrypt($string, $pass)
+{
+    $key_length = (int) (256 / 8);
+    $block_length = 16;
+    $data = base64_decode($string);
+    $salt = substr($data, 8, 8);
+    $encrypted = substr($data, 16);
+    $rounds = 3;
+    $data00 = $pass . $salt;
+    $md5_hash = array();
+    $md5_hash[0] = md5($data00, true);
+    $result = $md5_hash[0];
 
-	$key = substr($result, 0, $key_length);
-	$iv = substr($result, $key_length, $block_length);
-	
-	return openssl_decrypt($encrypted, "aes-256-cbc", $key, true, $iv);
+    for ($i = 1; $i < $rounds; $i++) {
+        $md5_hash[$i] = md5($md5_hash[$i - 1] . $data00, true);
+        $result .= $md5_hash[$i];
+    }
+
+    $key = substr($result, 0, $key_length);
+    $iv = substr($result, $key_length, $block_length);
+
+    return openssl_decrypt($encrypted, "aes-256-cbc", $key, true, $iv);
 }
 
 function randomStr($length = 6)
@@ -296,7 +299,7 @@ function randomStr($length = 6)
     $alpha  = "0123456789abcdefghijklmnopqrstuvwxyz";
 
     for ($i = 0; $i < $length; $i++) {
-        $string .= $alpha[rand(0, strlen($alpha)-1)];
+        $string .= $alpha[rand(0, strlen($alpha) - 1)];
     }
 
     return $string;

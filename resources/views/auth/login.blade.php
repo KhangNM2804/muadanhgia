@@ -117,7 +117,7 @@
                 </div>
             </div>
             {{-- <button class="btn btn-hero-danger scroll-down"><?= __('labels.click_show_product') ?></button> --}}
-            <div class="content" id="selling-bm">
+            {{-- <div class="content" id="selling-bm">
                 @if ($types)
                     @foreach ($types as $type)
                         @if (!checkEmptyType($type['id']))
@@ -257,7 +257,7 @@
                     </div>
                     <!-- END Users and Purchases -->
                 @endif
-            </div>
+            </div> --}}
 
             <!-- END Page Content -->
         </main>

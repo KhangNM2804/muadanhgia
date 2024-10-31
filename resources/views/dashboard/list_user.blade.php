@@ -25,7 +25,7 @@
                         <button type="submit" class="btn btn-primary">Tìm kiếm</button>
                         <a href="{{ route('user_export_excel') }}" class="btn btn-danger ml-2">Xuất excel</a>
                     </form>
-                    <table class="table table-vcenter">
+                    <table class="table table-vcenter" style="">
                         <thead>
                             <tr>
                                 <th class="text-center" style="width: 50px;">#ID</th>
@@ -38,11 +38,7 @@
                                 <th>2FA</th>
                                 <th>Login fail</th>
                                 <th>Hoạt động</th>
-                                <th>Aff</th>
                                 <th>Chiết khấu</th>
-                                <th>IP đăng nhập gần nhất</th>
-                                <th>Ngày đăng ký</th>
-                                <th>Ngày update</th>
                                 <th>Hành động</th>
                             </tr>
                         </thead>
@@ -97,16 +93,9 @@
                                             </div>
                                         </td>
                                         <td>
-                                            @if ($user->aff_flg == 1)
-                                                <span class="badge badge-success badge-pill">Đã cấp quyền aff</span>
-                                            @else
-                                                <span class="badge badge-danger badge-pill">Không có quyền aff</span>
-                                            @endif
-                                        </td>
-                                        <td>
                                             {{ $user->chietkhau }}%
                                         </td>
-                                        <td>
+                                        {{-- <td>
                                             {{ $user->last_ip }}
                                         </td>
                                         <td>
@@ -114,7 +103,7 @@
                                         </td>
                                         <td>
                                             {{ format_time($user->updated_at, 'd-m-Y H:i:s') }}
-                                        </td>
+                                        </td> --}}
                                         <td>
                                             <div class="btn-group">
                                                 <a href="{{ route('edit_user', ['id' => $user->id]) }}"
