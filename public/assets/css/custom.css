@@ -1,0 +1,192 @@
+.scroll-down {
+    opacity: 1;
+    -webkit-transition: all 0.5s ease-in 3s;
+    transition: all 0.5s ease-in 3s;
+}
+
+.scroll-down {
+    position: absolute;
+    bottom: 25px;
+    left: 45%;
+    margin-left: -16px;
+    z-index: 2;
+    -webkit-animation: bounce 2s infinite 2s;
+    animation: bounce 2s infinite 2s;
+    -webkit-transition: all 0.2s ease-in;
+    transition: all 0.2s ease-in;
+    transform: scale(1);
+}
+
+@keyframes bounce {
+    0%,
+    100%,
+    20%,
+    50%,
+    80% {
+        -webkit-transform: translateY(0);
+        -ms-transform: translateY(0);
+        transform: translateY(0);
+    }
+    40% {
+        -webkit-transform: translateY(-10px);
+        -ms-transform: translateY(-10px);
+        transform: translateY(-10px);
+    }
+    60% {
+        -webkit-transform: translateY(-5px);
+        -ms-transform: translateY(-5px);
+        transform: translateY(-5px);
+    }
+}
+
+.item-custom {
+    min-width: 100% !important;
+    display: flex !important;
+    flex-direction: column !important;
+}
+
+.item-custom .footer-btn {
+    display: block;
+    margin-top: auto;
+}
+
+.body-qr {
+    display: flex;
+    flex-wrap: wrap;
+}
+.body-qr .item-left {
+    flex: 40%;
+    background: linear-gradient(134deg, #04a468 0%, #0d788c 100%);
+    border-radius: 10px;
+    padding: 15px;
+}
+.body-qr .item-left p {
+    font-size: 15px;
+    color: #fff;
+    font-weight: 500;
+    border-bottom: 1px dotted #fff;
+}
+.body-qr .item-left p span {
+    font-weight: 700;
+    font-size: 17px;
+    margin-left: 10px;
+}
+.body-qr .item-left p:first-child span {
+    margin-left: unset;
+}
+.body-qr .item-left p:last-child {
+    border-bottom: unset;
+}
+.body-qr .item-left p a {
+    color: #ffbc0e;
+    font-weight: 700;
+}
+.body-qr .item-left h3 {
+    font-size: 20px;
+    color: #fff;
+    text-align: center;
+    font-weight: 700;
+}
+.body-qr .item-right {
+    flex: 60%;
+    padding: 30px;
+}
+.body-qr .item-right h3 {
+    font-size: 20px;
+    color: #111036;
+    text-align: center;
+    font-weight: 700;
+}
+.body-qr .item-right p {
+    font-size: 15px;
+    margin: 10px 0 5px 0;
+    color: #04a468;
+    font-weight: 500;
+}
+.body-qr .item-right p span {
+    font-weight: 700;
+    font-size: 17px;
+}
+.body-qr .item-right .img-item img {
+    border-radius: unset;
+    position: relative;
+    width: 100%;
+    background-color: unset;
+}
+@media (max-width: 992px) {
+    .body-qr .item-left,
+    .body-qr .item-right {
+        flex: 100%;
+        padding: 0;
+    }
+    .body-qr .item-left p,
+    .body-qr .item-right p {
+        font-size: 12px;
+    }
+    .body-qr .item-left p span,
+    .body-qr .item-right p span {
+        font-size: 14px;
+    }
+    .body-qr .item-left p.content-sub,
+    .body-qr .item-right p.content-sub {
+        font-size: 10px;
+    }
+    .body-qr .item-left h3,
+    .body-qr .item-right h3 {
+        font-size: 17px;
+    }
+    .body-qr .item-left .img-item,
+    .body-qr .item-right .img-item {
+        text-align: center;
+    }
+    .body-qr .item-left .img-item img,
+    .body-qr .item-right .img-item img {
+        width: 60%;
+    }
+    .body-qr .item-right {
+        padding-top: 20px;
+    }
+    .body-qr .item-left {
+        padding: 5px;
+    }
+    .body-qr .item-left p {
+        padding: 5px;
+    }
+}
+
+.selectpackage {
+    cursor: pointer;
+    border: 1px solid black;
+    background: #fff;
+    margin-bottom: 30px;
+    transition: 0.5s;
+    border-radius: 0.55rem;
+    position: relative;
+    width: 100%;
+}
+
+.item.item-circle {
+    border-radius: 50%;
+    border: 2px solid black;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-align: center;
+    align-items: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    width: 4rem;
+    height: 4rem;
+    transition: opacity 0.25s ease-out, -webkit-transform 0.25s ease-out;
+    transition: opacity 0.25s ease-out, transform 0.25s ease-out;
+    transition: opacity 0.25s ease-out, transform 0.25s ease-out,
+        -webkit-transform 0.25s ease-out;
+}
+
+.selectpackage:hover {
+    transform: scale(1.05);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.12), 0 4px 8px rgba(0, 0, 0, 0.06);
+}
+
+.custom-control-success .custom-control-label::before {
+    background-color: #bd4928;
+}

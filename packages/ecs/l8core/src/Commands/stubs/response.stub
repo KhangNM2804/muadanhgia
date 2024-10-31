@@ -1,0 +1,10 @@
+<?php
+
+namespace DummyNamespace;
+
+use Ecs\L8Core\Core\BaseResponse;
+
+class DummyClass extends BaseResponse
+{
+    //
+}

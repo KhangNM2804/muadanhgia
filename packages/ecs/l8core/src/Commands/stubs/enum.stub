@@ -1,0 +1,18 @@
+<?php
+
+namespace DummyNamespace;
+
+use Ecs\L8Core\Contracts\EnumContract;
+
+class DummyClass implements EnumContract
+{
+    /**
+     * Get all constants
+     */
+    public static function all()
+    {
+        return [
+            //
+        ];
+    }
+}

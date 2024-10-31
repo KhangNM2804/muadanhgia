@@ -1,0 +1,32 @@
+{
+    "name": "ecs/l8-core",
+    "description": "Core Dependencies for Laravel v8",
+    "type": "library",
+    "authors": [
+        {
+            "name": "Thanh Trung",
+            "email": "thanhtrungit.dev@gmail.com"
+        }
+    ],
+    "require": {
+        "illuminate/support": "^5.8|^6.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Ecs\\L8Core\\": "src/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Ecs\\L8Core\\L8CoreServiceProvider"
+            ]
+        }
+    },
+    "minimum-stability": "dev",
+    "license": "MIT",
+    "config": {
+        "sort-packages": true
+    },
+    "prefer-stable": true
+}
