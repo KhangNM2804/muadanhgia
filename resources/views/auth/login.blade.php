@@ -16,7 +16,8 @@
                                         <!-- Header -->
                                         <div class="mb-2 text-center">
                                             @if (!empty($siteSetting['web_logo']['cd_value'] ?? ''))
-                                                <img src="{{ $siteSetting['web_logo']['cd_value'] ?? '' }}" alt="">
+                                                <img width="200px" src="{{ $siteSetting['web_logo']['cd_value'] ?? '' }}"
+                                                    alt="">
                                             @endif
                                         </div>
                                         <div class="mb-2 text-center">
@@ -68,9 +69,9 @@
                                                     placeholder="<?= __('labels.password') ?>"
                                                     value="{{ request()->old('password') ?? '' }}" autocomplete="off">
                                             </div>
-                                            @if (getSetting('flag_recaptcha') == 'on')
+                                            {{-- @if (getSetting('flag_recaptcha') == 'on')
                                                 {!! app('captcha')->display($attributes = [], $options = ['lang' => 'vi']) !!}
-                                            @endif
+                                            @endif --}}
                                             <div
                                                 class="form-group d-sm-flex justify-content-sm-between align-items-sm-center text-center text-sm-left">
                                                 <div class="custom-control custom-checkbox custom-control-primary">

@@ -154,7 +154,7 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <hr>
-                                <label class="text-danger">Cấu hình API VCB (cung cấp bởi thanhtrungit)</label>
+                                <label class="text-danger">Cấu hình API VCB </label>
                                 <div class="alert alert-danger" role="alert">
                                     <h5>Lưu ý đối với Vietcombank</h4>
                                         <p>Bước 1: Mở app Vietcombank tìm mục Cài đặt -> Cài đặt chung -> Quản lý đăng nhập
@@ -208,7 +208,7 @@
                             </div>
                             <div class="col-md-6">
                                 <hr>
-                                <label class="text-danger">Cấu hình API MB Bank (cung cấp bởi thanhtrungit)</label>
+                                <label class="text-danger">Cấu hình API MB Bank</label>
                                 @if ($result_mb && $result_mb->msg)
                                     <div class="alert alert-primary" role="alert">
                                         {!! $result_mb->msg !!}
@@ -260,7 +260,7 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <hr>
-                                <label class="text-danger">Cấu hình API ACB (cung cấp bởi thanhtrungit)</label>
+                                <label class="text-danger">Cấu hình API ACB</label>
                                 @if ($result_acb && $result_acb->msg)
                                     <div class="alert alert-primary" role="alert">
                                         {!! $result_acb->msg !!}
@@ -305,7 +305,7 @@
                             </div>
                             <div class="col-md-6">
                                 <hr>
-                                <label class="text-danger">Cấu hình API Vietinbank (cung cấp bởi thanhtrungit)</label>
+                                <label class="text-danger">Cấu hình API Vietinbank</label>
                                 @if ($result_vtb && $result_vtb->msg)
                                     <div class="alert alert-primary" role="alert">
                                         {!! $result_vtb->msg !!}
@@ -372,11 +372,11 @@
                             <label>Thông báo đầu trang</label>
                             <textarea id="js-ckeditor" name="header_notices">{{ getSetting('header_notices') }}</textarea>
                         </div>
-                        <div class="form-group">
+                        {{-- <div class="form-group">
                             <label>Token BM ( Sử dụng cho tool check bm )</label>
                             <input type="text" name="token_bm" class="form-control form-control-line"
                                 value="{{ getSetting('token_bm') }}" />
-                        </div>
+                        </div> --}}
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
@@ -391,7 +391,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="form-group">
+                        {{-- <div class="form-group">
                             <label>Mã Google Analytics</label>
                             <textarea name="gg_analytics" class="form-control" rows="5">{{ getSetting('gg_analytics') }}</textarea>
                         </div>
@@ -434,7 +434,7 @@
                             <label>Paypal Tỉ giá ( mặc định : 1 USD = 24.000 VNĐ )</label>
                             <input type="number" class="form-control" name="paypal_rate"
                                 value="{{ getSetting('paypal_rate') }}" autocomplete="off" placeholder="24000">
-                        </div>
+                        </div> --}}
                         <button type="submit" class="btn btn-primary waves-effect waves-light m-r-10">Lưu cấu
                             hình</button>
                     </form>

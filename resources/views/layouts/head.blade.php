@@ -164,7 +164,7 @@
                                 <span class="nav-main-link-name"><?= __('labels.orders_history') ?></span>
                             </a>
                         </li>
-                        <li class="nav-main-item">
+                        {{-- <li class="nav-main-item">
                             <a class="nav-main-link {!! active_menu(['ticket.index']) !!}" href="{{ route('ticket.index') }}">
                                 <i class="nav-main-link-icon fas fa-clipboard-check"></i>
                                 @can('admin_role')
@@ -175,7 +175,7 @@
                                 <span
                                     class="nav-main-link-badge badge badge-pill badge-danger">{{ get_unread_tickets() }}</span>
                             </a>
-                        </li>
+                        </li> --}}
                         @php
                             $listType = getTypes();
                         @endphp
@@ -209,11 +209,10 @@
                             <a class="nav-main-link {!! active_menu(['baiviet']) !!}" href="{{ route('baiviet') }}">
                                 <i class="nav-main-link-icon far fa fa-file-alt"></i>
                                 <span class="nav-main-link-name"><?= __('labels.tutorials') ?></span>
-                                <span class="nav-main-link-badge badge badge-pill badge-danger">VIP</span>
                             </a>
                         </li>
 
-                        <li class="nav-main-heading"><?= __('labels.tools') ?></li>
+                        {{-- <li class="nav-main-heading"><?= __('labels.tools') ?></li> --}}
                         {{-- <li class="nav-main-item">
                             <a class="nav-main-link {!! active_menu(['share_tkqc_to_via']) !!}" href="{{ route('share_tkqc_to_via') }}">
                                 <i class="nav-main-link-icon fa fa-code text-danger"></i>
@@ -221,25 +220,25 @@
                                 <span class="nav-main-link-badge badge badge-pill badge-danger">hot</span>
                             </a>
                         </li> --}}
-                        <li class="nav-main-item">
+                        {{-- <li class="nav-main-item">
                             <a class="nav-main-link {!! active_menu(['xmdt.index']) !!}" href="{{ route('xmdt.index') }}">
                                 <i class="nav-main-link-icon fa fa-address-card text-primary"></i>
                                 <span class="nav-main-link-name">Tạo phôi XMDT</span>
                                 <span class="nav-main-link-badge badge badge-pill badge-danger">hot</span>
                             </a>
-                        </li>
-                        <li class="nav-main-item">
+                        </li> --}}
+                        {{-- <li class="nav-main-item">
                             <a class="nav-main-link {!! active_menu(['setting_api']) !!}" href="{{ route('setting_api') }}">
                                 <i class="nav-main-link-icon fa fa-code text-danger"></i>
                                 <span class="nav-main-link-name"><?= __('labels.connect_api') ?></span>
                             </a>
-                        </li>
-                        <li class="nav-main-item">
+                        </li> --}}
+                        {{-- <li class="nav-main-item">
                             <a class="nav-main-link {!! active_menu(['checkliveuid']) !!}" href="{{ route('checkliveuid') }}">
                                 <i class="nav-main-link-icon fab fa-facebook-f"></i>
                                 <span class="nav-main-link-name"><?= __('labels.check_live_uid') ?></span>
                             </a>
-                        </li>
+                        </li> --}}
                         {{-- <li class="nav-main-item">
                             <a class="nav-main-link {!! active_menu(['checkbm']) !!}" href="{{ route('checkbm') }}">
                                 <i class="nav-main-link-icon fa fa-check-circle"></i>
@@ -253,12 +252,12 @@
                                 <span class="nav-main-link-badge badge badge-pill badge-danger">hot</span>
                             </a>
                         </li> --}}
-                        <li class="nav-main-item">
+                        {{-- <li class="nav-main-item">
                             <a class="nav-main-link {!! active_menu(['tool2fa']) !!}" href="{{ route('tool2fa') }}">
                                 <i class="nav-main-link-icon fa fa-lock"></i>
                                 <span class="nav-main-link-name"><?= __('labels.2fatool') ?></span>
                             </a>
-                        </li>
+                        </li> --}}
                         <li class="nav-main-item">
                             <a class="nav-main-link {!! active_menu(['hotro']) !!}" href="{{ route('hotro') }}">
                                 <i class="nav-main-link-icon fa fa-headset"></i>
@@ -282,7 +281,7 @@
                                     <span class="nav-main-link-name">Quản lý danh mục</span>
                                 </a>
                             </li>
-                            <li class="nav-main-item">
+                            {{-- <li class="nav-main-item">
                                 <a class="nav-main-link {!! active_menu(['category_index']) !!}" href="{{ route('category_index') }}">
                                     <i class="nav-main-link-icon si si-social-dropbox"></i>
                                     <span class="nav-main-link-name">Danh sách thể loại</span>
@@ -299,20 +298,20 @@
                                     <i class="nav-main-link-icon fab fa-buysellads"></i>
                                     <span class="nav-main-link-name">Danh sách đang bán</span>
                                 </a>
-                            </li>
+                            </li> --}}
                             {{-- <li class="nav-main-item">
                                 <a class="nav-main-link {!! active_menu(['dropzone.index']) !!}" href="{{ route('dropzone.index') }}">
                                     <i class="nav-main-link-icon fa fa-cloud-upload-alt"></i>
                                     <span class="nav-main-link-name">Upload Backup Via</span>
                                 </a>
                             </li> --}}
-                            <li class="nav-main-item">
+                            {{-- <li class="nav-main-item">
                                 <a class="nav-main-link {!! active_menu(['dropzone_phoi.index']) !!}"
                                     href="{{ route('dropzone_phoi.index') }}">
                                     <i class="nav-main-link-icon fa fa-cloud-upload-alt"></i>
                                     <span class="nav-main-link-name">Upload Phôi via</span>
                                 </a>
-                            </li>
+                            </li> --}}
                         @endcan
                         @can('staff_role')
                             <li class="nav-main-item">
@@ -353,7 +352,7 @@
                                     <span class="nav-main-link-name">Quản lý bài viết</span>
                                 </a>
                             </li>
-                            <li class="nav-main-item">
+                            {{-- <li class="nav-main-item">
                                 <a class="nav-main-link {!! active_menu(['setting_telegram']) !!}" href="{{ route('setting_telegram') }}">
                                     <i class="nav-main-link-icon fab fa-telegram"></i>
                                     <span class="nav-main-link-name">Cấu hình BOT telegram</span>
@@ -364,7 +363,7 @@
                                     <i class="nav-main-link-icon si si-share"></i>
                                     <span class="nav-main-link-name">Kết nối API</span>
                                 </a>
-                            </li>
+                            </li> --}}
                             <li class="nav-main-item">
                                 <a class="nav-main-link {!! active_menu(['setting']) !!}" href="{{ route('setting') }}">
                                     <i class="nav-main-link-icon si si-settings"></i>
