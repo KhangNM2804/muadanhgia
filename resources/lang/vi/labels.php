@@ -117,5 +117,16 @@ return [
     'deposit_amount' => 'Số tiền nạp',
     'rate' => 'Tỉ giá',
     'list' => 'Danh sách',
-    'tickets' => 'Gửi ticket hỗ trợ'
+    'tickets' => 'Gửi ticket hỗ trợ',
+    //Khang
+    'gg_map' => 'Google Map',
+    'review_gg_map' => 'Review Google Map',
+    'review_gg_map_5_start' => 'Review 5 sao',
+    'review_gg_map_image' => 'Review kèm ảnh',
+    'traffic_gg_map' => 'Traffic Google Maps',
+    'like_review' => 'Like Review',
+    'report_review' => 'Report Review',
+    'create_map' => 'Tạo Map',
+    'note_type' => 'Chú ý',
+    'create_orders' => 'Tạo đơn'
 ];

@@ -4,6 +4,7 @@ use App\Models\Category;
 use App\Models\Setting;
 use App\Models\Ticket;
 use App\Models\Type;
+use App\Models\TypeOrder;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Route;
@@ -164,6 +165,11 @@ function getChild($user_id)
 function getTypes()
 {
     $list =  Type::with('allCategory')->whereHas('allCategory')->where('display', 1)->orderBy('sort_num')->orderBy('id')->get();
+    return $list;
+}
+function getTypeOrder()
+{
+    $list =  TypeOrder::where('id', '!=', 2)->orderBy('id')->get();
     return $list;
 }
 

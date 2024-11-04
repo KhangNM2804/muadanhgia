@@ -9,6 +9,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LocalizationController;
 use App\Http\Controllers\MomoController;
 use App\Http\Controllers\NowPaymentController;
+use App\Http\Controllers\OrderController;
 use App\Http\Controllers\PaypalController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\TelegramController;
@@ -48,7 +49,8 @@ Route::middleware('auth', '2fa', 'user_has_block')->group(function () {
         Route::post("/enable", [TwoFaceAuthsController::class, 'enable'])->name("enable_2fa_setting");
         Route::post("/disable", [TwoFaceAuthsController::class, 'disable'])->name("disable_2fa_setting");
     });
-
+    Route::get('orders/{path}', [OrderController::class, 'create'])->name('orders.create');
+    Route::post('orders/{path}', [OrderController::class, 'store'])->name('orders.store');
     Route::middleware('can:admin_role')->group(function () {
         Route::get('users', [HomeController::class, 'listUser'])->name('listUser');
         Route::get('users/export_excel', [HomeController::class, 'user_export_excel'])->name('user_export_excel');

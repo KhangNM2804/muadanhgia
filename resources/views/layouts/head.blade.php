@@ -177,27 +177,20 @@
                             </a>
                         </li> --}}
                         @php
-                            $listType = getTypes();
+                            $listType = getTypeOrder();
                         @endphp
                         @if ($listType)
                             <li class="nav-main-item open">
                                 <a class="nav-main-link nav-main-link-submenu" data-toggle="submenu"
                                     aria-haspopup="true" aria-expanded="true" href="#">
-                                    <i class="nav-main-link-icon si si-basket"></i>
-                                    <span class="nav-main-link-name"><?= __('labels.buy') ?></span>
+                                    <i class="nav-main-link-icon si si-social-google"></i>
+                                    <span class="nav-main-link-name"><?= __('labels.gg_map') ?></span>
                                 </a>
                                 <ul class="nav-main-submenu">
                                     @foreach ($listType as $type)
                                         <li class="nav-main-item">
-                                            <a class="nav-main-link {{ (request()->id ?? '') == $type->id ? 'active' : '' }}"
-                                                href="{{ route('home.muahang', ['id' => $type->id]) }}">
-                                                @if (!empty($type->icon))
-                                                    <img src="{{ asset('assets/media/country/' . $type->icon) }}"
-                                                        alt="" width="25px" class="mr-2">
-                                                @else
-                                                    <i class="nav-main-link-icon far fa fa-arrow-alt-circle-right mr-2"
-                                                        style="font-size: 24px"></i>
-                                                @endif
+                                            <a class="nav-main-link {{ (request()->path ?? '') == $type->path ? 'active' : '' }}"
+                                                href="{{ route('orders.create', ['path' => $type->path]) }}">
                                                 <span class="nav-main-link-name">{{ $type->name }}</span>
                                             </a>
                                         </li>
