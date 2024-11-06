@@ -1,6 +1,7 @@
 <div class="row ">
     <div class="col-8">
-        <form class="pb-4" action="#" method="POST">
+        <form class="pb-4" action="{{ route('orders.store', ['path' => $type[0]->path]) }}" method="POST">
+            @csrf
             <!-- Thông báo giá và lượt tối đa -->
             <div class="text-center mb-3">
                 <p class="text-danger font-weight-bold">
@@ -10,16 +11,22 @@
 
             <!-- Link chia sẻ bài đánh giá -->
             <div class="form-group">
-                <label for="review_link" class="text-primary font-weight-bold">Điền link chia sẻ bài đánh giá</label>
-                <input type="url" id="review_link" name="review_link" class="form-control form-control-sm"
-                    placeholder="Điền link chia sẻ có, ví dụ: https://maps.app.goo.gl/..." required>
+                <label for="link" class="text-primary font-weight-bold">Điền link chia sẻ bài đánh giá</label>
+                <input type="url" id="link" name="link" class="form-control form-control-sm"
+                    placeholder="Điền link chia sẻ có, ví dụ: https://maps.app.goo.gl/...">
+                @error('link')
+                    <div class="text-danger">{{ $message }}</div>
+                @enderror
             </div>
 
             <!-- Lượt like cần chạy -->
             <div class="form-group">
-                <label for="like_count" class="text-primary font-weight-bold">Lượt like cần chạy:</label>
-                <input type="number" id="like_count" name="like_count" class="form-control form-control-sm"
-                    placeholder="Nhập số lượng" min="1" required>
+                <label for="total_quantity" class="text-primary font-weight-bold">Lượt like cần chạy:</label>
+                <input type="number" id="total_quantity" name="total_quantity" class="form-control form-control-sm"
+                    placeholder="Nhập số lượng" min="1">
+                @error('total_quantity')
+                    <div class="text-danger">{{ $message }}</div>
+                @enderror
             </div>
 
             <!-- Nút tạo đơn -->

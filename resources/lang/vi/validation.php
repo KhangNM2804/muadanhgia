@@ -156,6 +156,10 @@ return [
         'email' => 'Email',
         'phone' => 'Số điện thoại',
         'username' => 'Tài khoản',
+        'link' => 'Liên kết',
+        'total_quantity' => 'Tổng số lượng',
+        'images' => 'Ảnh',
+        'quantity_run' => 'Số lượng chạy'
     ],
 
     'regex_username' => 'Tên tài khoản bao gồm ít nhất 3 kí tự, không được có dấu, chứa kí tự đặc biệt, space.',

@@ -1,6 +1,6 @@
 <div class="row">
     <div class="col-8">
-        <form class="pb-3" action="{{ route('orders.store', ['path' => $type[1]->path]) }}" method="POST"
+        <form class="pb-3" action="{{ route('orders.store', ['path' => 'review_images']) }}" method="POST"
             enctype="multipart/form-data">
             @csrf
             <!-- Link to Google Maps -->
@@ -27,7 +27,7 @@
             <!-- Image Upload -->
             <div class="form-group">
                 <label class="text-primary">Đính kèm ảnh:</label>
-                <input type="file" id="images" name="images" class="form-control-file" accept="image/*" multiple
+                <input type="file" id="images" name="images[]" class="form-control-file" accept="image/*" multiple
                     onchange="previewImages()">
                 <div id="image-preview" class="d-flex flex-wrap mt-3"></div>
             </div>
@@ -62,13 +62,11 @@
                 imgContainer.style.position = 'relative';
                 imgContainer.style.width = 'calc(25% - 16px)'; // Max 4 images per row
                 imgContainer.style.flexBasis = '25%';
-
                 const img = document.createElement('img');
                 img.src = e.target.result;
                 img.className = 'img-thumbnail';
                 img.style.width = '100%';
                 img.style.height = 'auto';
-
                 const deleteBtn = document.createElement('button');
                 deleteBtn.textContent = 'X';
                 deleteBtn.className = 'btn btn-danger btn-sm';
@@ -77,13 +75,31 @@
                 deleteBtn.style.right = '5px';
                 deleteBtn.onclick = function() {
                     imgContainer.remove();
+                    removeFile(index);
                 };
-
                 imgContainer.appendChild(img);
                 imgContainer.appendChild(deleteBtn);
                 preview.appendChild(imgContainer);
             };
             reader.readAsDataURL(file);
         });
+    }
+
+    function removeFile(indexToRemove) {
+        const input = document.getElementById('images');
+        const files = Array.from(input.files);
+
+        // Create a new DataTransfer object
+        const dataTransfer = new DataTransfer();
+
+        // Add all files except the one at the index to remove
+        files.forEach((file, index) => {
+            if (index !== indexToRemove) {
+                dataTransfer.items.add(file);
+            }
+        });
+
+        // Update the input with the new FileList
+        input.files = dataTransfer.files;
     }
 </script>

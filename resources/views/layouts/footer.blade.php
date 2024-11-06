@@ -27,34 +27,41 @@
     </div>
 </div>
 @if (!empty($siteSetting['display_noti']['cd_value']))
-@php
-    $off_popup_hour = getSetting('off_popup_hour') ?: 3
-@endphp
-<div class="modal fade modalNotification" tabindex="-1" role="dialog" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-slideup modal-lg" role="document">
-        <div class="modal-content">
-            <div class="block block-rounded block-themed block-transparent mb-0">
-                <div class="block-header bg-primary-dark">
-                    <h3 class="block-title">Thông báo</h3>
-                    <div class="block-options">
-                        <button type="button" class="btn btn-sm btn-danger" data-dismiss="modal" onclick="document.cookie = 'popupShown=true; max-age={{(int)$off_popup_hour * 60 *60}}'">Tắt thông báo ({{$off_popup_hour}} giờ)</button>
+    @php
+        $off_popup_hour = getSetting('off_popup_hour') ?: 3;
+    @endphp
+    <div class="modal fade modalNotification" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-slideup modal-lg" role="document">
+            <div class="modal-content">
+                <div class="block block-rounded block-themed block-transparent mb-0">
+                    <div class="block-header bg-primary-dark">
+                        <h3 class="block-title">Thông báo</h3>
+                        <div class="block-options">
+                            <button type="button" class="btn btn-sm btn-danger" data-dismiss="modal"
+                                onclick="document.cookie = 'popupShown=true; max-age={{ (int) $off_popup_hour * 60 * 60 }}'">Tắt
+                                thông báo ({{ $off_popup_hour }} giờ)</button>
+                            <button type="button" class="btn btn-sm btn-primary" data-dismiss="modal">Đóng</button>
+                        </div>
+                    </div>
+                    <div class="block-content">
+                        <div
+                            class="font-w600 animated fadeIn bg-body-light border-2x px-3 py-1 mb-3 shadow-sm mw-100 border-left border-success rounded-right">
+                            {!! $siteSetting['header_notices']['cd_value'] ?? '' !!}
+                        </div>
+                    </div>
+                    <div class="block-content block-content-full text-end bg-body">
+                        <button type="button" class="btn btn-sm btn-danger" data-dismiss="modal"
+                            onclick="document.cookie = 'popupShown=true; max-age={{ (int) $off_popup_hour * 60 * 60 }}'">Tắt
+                            thông báo ({{ $off_popup_hour }} giờ)</button>
                         <button type="button" class="btn btn-sm btn-primary" data-dismiss="modal">Đóng</button>
                     </div>
-                </div>
-                <div class="block-content">
-                    <div class="font-w600 animated fadeIn bg-body-light border-2x px-3 py-1 mb-3 shadow-sm mw-100 border-left border-success rounded-right">
-                        {!! $siteSetting['header_notices']['cd_value'] ?? '' !!}
-                    </div>
-                </div>
-                <div class="block-content block-content-full text-end bg-body">
-                    <button type="button" class="btn btn-sm btn-danger" data-dismiss="modal" onclick="document.cookie = 'popupShown=true; max-age={{(int)$off_popup_hour * 60 *60}}'">Tắt thông báo ({{$off_popup_hour}} giờ)</button>
-                    <button type="button" class="btn btn-sm btn-primary" data-dismiss="modal">Đóng</button>
                 </div>
             </div>
         </div>
     </div>
-</div>
 @endif
+
+
 <script src="{{ asset('assets/js/dashmix.core.min.js') }}"></script>
 <script src="{{ asset('assets/js/dashmix.app.min.js') }}"></script>
 <script src="{{ asset('assets/js/plugins/highlightjs/highlight.pack.min.js') }}"></script>
@@ -70,7 +77,17 @@
 <script src="{{ asset('assets/js/plugins/Holdon/HoldOn.min.js') }}"></script>
 <script src="{{ asset('assets/js/pages/be_tables_datatables.min.js') }}"></script>
 <script src="{{ asset('assets/js/core/bootstrap.bundle.min.js') }}"></script>
+<!-- Toastr JS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+<script>
+    @if (session('success'))
+        toastr.success("{{ session('success') }}");
+    @endif
 
+    @if (session('error'))
+        toastr.error("{{ session('error') }}");
+    @endif
+</script>
 <!-- Page JS Helpers (jQuery Sparkline plugin) -->
 <script>
     jQuery(function() {
@@ -113,7 +130,7 @@
             $('.modalNotification').modal('show');
         }
 
-        $(".btnShowInfoCategory").click(function(){
+        $(".btnShowInfoCategory").click(function() {
             var category_id = $(this).data('type-id')
             var category_title = $(this).data('type-title')
             Dashmix.layout('header_loader_on');
@@ -126,12 +143,10 @@
                     $('.modalInfoCategory').modal('show');
                     Dashmix.layout('header_loader_off');
                 },
-                error: function (xhr, ajaxOptions, thrownError) {
-                }
+                error: function(xhr, ajaxOptions, thrownError) {}
             });
         })
     });
-
 </script>
 @if (App::isLocale('en') || App::isLocale('th'))
     <script src="{{ asset('assets/js/custom_en.js?v=' . time()) }}"></script>
@@ -140,4 +155,5 @@
 @endif
 @stack('custom-scripts')
 </body>
+
 </html>

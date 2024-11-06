@@ -14,8 +14,8 @@
             <!-- Total Reviews Needed -->
             <div class="form-group">
                 <label for="total_quantity" class="text-primary">Tổng số review cần chạy:</label>
-                <input type="number" id="total_quantity" name="total_quantity" class="form-control form-control-sm"
-                    value="{{ old('total_quantity', 3) }}">
+                <input min="1" type="number" id="total_quantity" name="total_quantity"
+                    class="form-control form-control-sm" value="{{ old('total_quantity', 3) }}">
                 @error('total_quantity')
                     <div class="text-danger">{{ $message }}</div>
                 @enderror
@@ -48,7 +48,18 @@
                 <textarea id="note" name="note" class="form-control form-control-sm" rows="2"
                     placeholder="Nhập ghi chú (không bắt buộc)">{{ old('note') }}</textarea>
             </div>
-
+            <div class="form-group">
+                <input type="hidden" id="price" name="price" class="form-control form-control-sm"
+                    value="{{ $type[0]->price }}">
+            </div>
+            <div class="form-group">
+                <input type="hidden" id="total_money" name="total_money" class="form-control form-control-sm">
+            </div>
+            <div class="form-group">
+                <div class="alert alert-success text-center" role="alert">
+                    <span>Tổng tiền: </span><strong id="total_price">0</strong>
+                </div>
+            </div>
             <!-- Submit Button -->
             <button type="submit" class="btn btn-primary btn-block">Tạo đơn</button>
         </form>
@@ -57,10 +68,26 @@
         @include('orders._note_order', ['description' => $type[0]->description])
     </div>
 </div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
-    // JavaScript to update content count
-    document.getElementById('content').addEventListener('input', function() {
-        let contentCount = this.value.split('\n').filter(line => line.trim() !== "").length;
-        document.getElementById('content_count').textContent = contentCount;
+    function updateContentAndTotalPrice() {
+        // Count non-empty lines in content textarea
+        let contentCount = $('#content').val().split('\n').filter(line => $.trim(line) !== "").length;
+        $('#content_count').text(contentCount);
+        // Calculate total price
+        let price = parseFloat($('#price').val()) || 0;
+        let totalQuantity = parseInt($('#total_quantity').val()) || 0;
+        let totalMoney = price * totalQuantity;
+        $('#total_money').val(totalMoney);
+        $('#total_price').text(totalMoney > 0 ? totalMoney.toLocaleString('vi-VN') + 'đ' : 'Không hợp lệ');
+    }
+
+    $(document).ready(function() {
+        // Run the update function once on page load
+        updateContentAndTotalPrice();
+
+        // Attach the function to input events
+        $('#content, #total_quantity').on('input', updateContentAndTotalPrice);
     });
 </script>

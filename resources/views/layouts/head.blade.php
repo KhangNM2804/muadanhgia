@@ -34,6 +34,11 @@
     <link rel="stylesheet" href="{{ asset('assets/js/plugins/highlightjs/styles/atom-one-light.css') }}">
     <link rel="stylesheet"
         href="{{ asset('assets/js/plugins/bootstrap-datepicker/css/bootstrap-datepicker3.min.css') }}">
+    <!-- Toastr CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" rel="stylesheet">
+
+
+
     <link rel="stylesheet" href="{{ asset('assets/js/plugins/datatables/dataTables.bootstrap4.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/js/plugins/Holdon/HoldOn.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/custom.css?v=' . time()) }}">
