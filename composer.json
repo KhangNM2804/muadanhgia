@@ -51,7 +51,8 @@
             "Ecs\\L8Core\\": "packages/ecs/l8core/src/"
         },
         "files": [
-            "app/Helpers/Helper.php"
+            "app/Helpers/Helper.php",
+            "app/Helpers/OrderHelper.php"
         ]
     },
     "autoload-dev": {
