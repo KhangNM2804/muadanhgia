@@ -8,13 +8,13 @@ use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 
 if (!function_exists('generateOrderCode')) {
-    function generateOrderCode($type)
+    function generateOrderCode($type, $type_order_id)
     {
         // Lấy ngày hiện tại
         $date = Carbon::now()->format('dmY');
 
         // Đếm số lượng đơn hàng trong ngày hôm nay
-        $orderCount = Order::whereDate('created_at', Carbon::today())->count() + 1;
+        $orderCount = Order::where('type_order_id', $type_order_id)->whereDate('created_at', Carbon::today())->count() + 1;
 
         // Tạo mã đơn hàng
         $orderCode = $type . $date . str_pad($orderCount, 3, '0', STR_PAD_LEFT);
@@ -50,6 +50,7 @@ if (!function_exists('deduct_money')) {
                 'file' => $file,
                 'before_coin' => $user->coin,
                 'after_coin' => $coin,
+                'status' => LogPayment::STATUS_ERROR
             ]);
             return false; //nếu không đủ tiền thì return
         }
@@ -60,9 +61,37 @@ if (!function_exists('deduct_money')) {
             'file' => $file,
             'before_coin' => $user->coin,
             'after_coin' => $coin,
+            'status' => LogPayment::STATUS_SUCCESS
         ]);
         $user->coin = $coin;
         $user->save();
         return true;
+    }
+}
+if (!function_exists('upload_images')) {
+    function upload_images($images)
+    {
+        try {
+            $file_names = [];
+            foreach ($images as $image) {
+                $originalName = $image->getClientOriginalName();
+                // Extract numbers from the file name (6 to 16 digits)
+                preg_match('/([0-9]{6,16})/', $originalName, $matches);
+
+                if (isset($matches[0])) {
+                    // Use the extracted number and add a unique suffix
+                    $imageName = $matches[0] . '_' . uniqid() . ".jpg";
+                } else {
+                    // Fallback to a unique name based on time and a random suffix
+                    $imageName = time() . '_' . uniqid() . ".jpg";
+                }
+                $image->move(storage_path('app/review_images'), $imageName);
+                $file_names[] = $imageName;
+            }
+            return $file_names;
+        } catch (\Exception $e) {
+            log_action('Uploadfile',  $e->getMessage(), 'OrderController line 108');
+            return false;
+        }
     }
 }
