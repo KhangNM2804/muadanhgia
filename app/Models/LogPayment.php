@@ -9,6 +9,8 @@ class LogPayment extends Model
 {
     use HasFactory;
     protected $table = "log_payments";
+    public const STATUS_SUCCESS = 1;
+    public const STATUS_ERROR = 2;
     protected $fillable = [
         'id',
         'user_id',
@@ -17,5 +19,6 @@ class LogPayment extends Model
         'file',
         'before_coin',
         'after_coin',
+        'status',
     ];
 }

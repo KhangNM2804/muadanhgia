@@ -159,7 +159,10 @@ return [
         'link' => 'Liên kết',
         'total_quantity' => 'Tổng số lượng',
         'images' => 'Ảnh',
-        'quantity_run' => 'Số lượng chạy'
+        'quantity_run' => 'Số lượng chạy',
+        'content_images' => 'Nội dung',
+        'link_images' => 'Liên kết',
+
     ],
 
     'regex_username' => 'Tên tài khoản bao gồm ít nhất 3 kí tự, không được có dấu, chứa kí tự đặc biệt, space.',

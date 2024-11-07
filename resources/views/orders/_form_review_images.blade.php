@@ -21,9 +21,15 @@
                 @error('content')
                     <div class="text-danger">{{ $message }}</div>
                 @enderror
-                <small class="form-text text-muted">Số lượng nội dung: <span id="content_count">0</span></small>
-            </div>
 
+            </div>
+            <div class="text-center">
+                <span class="badge badge-warning">Số lượng từ khoá: <span id="content_count">0</span></span>
+                <p class="text-danger font-weight-bold mt-2">Chú ý từ khoá trên khi tìm kiếm cần xuất hiện Maps của bạn
+                </p>
+                <p class="text-danger">Hệ thống phân bổ lượt truy cập rải đều lên danh sách từ khoá trên để tạo sự tự
+                    nhiên cho Maps của bạn</p>
+            </div>
             <!-- Image Upload -->
             <div class="form-group">
                 <label class="text-primary">Đính kèm ảnh:</label>
@@ -38,7 +44,18 @@
                 <textarea id="note" name="note" class="form-control form-control-sm" rows="2"
                     placeholder="Nhập ghi chú (không bắt buộc)">{{ old('note') }}</textarea>
             </div>
-
+            <div class="form-group">
+                <input type="hidden" id="price" name="price" class="form-control form-control-sm"
+                    value="{{ $type[1]->price }}">
+            </div>
+            <div class="form-group">
+                <input type="hidden" id="total_money" name="total_money" class="form-control form-control-sm">
+            </div>
+            <div class="form-group">
+                <div class="alert alert-success text-center" role="alert">
+                    <span>Tổng tiền: </span><strong id="total_price">0</strong>
+                </div>
+            </div>
             <!-- Submit Button -->
             <button type="submit" class="btn btn-primary btn-block">Tạo đơn</button>
         </form>
@@ -50,51 +67,61 @@
 <!-- JavaScript to Preview Images and Delete -->
 <script>
     function previewImages() {
-        const preview = document.getElementById('image-preview');
-        preview.innerHTML = ''; // Clear existing previews
-        const files = document.getElementById('images').files;
-
-        Array.from(files).forEach((file, index) => {
+        const preview = $('#image-preview');
+        preview.empty(); // Clear existing previews
+        const files = $('#images')[0].files;
+        $.each(files, (index, file) => {
             const reader = new FileReader();
             reader.onload = function(e) {
-                const imgContainer = document.createElement('div');
-                imgContainer.className = 'm-2';
-                imgContainer.style.position = 'relative';
-                imgContainer.style.width = 'calc(25% - 16px)'; // Max 4 images per row
-                imgContainer.style.flexBasis = '25%';
-                const img = document.createElement('img');
-                img.src = e.target.result;
-                img.className = 'img-thumbnail';
-                img.style.width = '100%';
-                img.style.height = 'auto';
-                const deleteBtn = document.createElement('button');
-                deleteBtn.textContent = 'X';
-                deleteBtn.className = 'btn btn-danger btn-sm';
-                deleteBtn.style.position = 'absolute';
-                deleteBtn.style.top = '5px';
-                deleteBtn.style.right = '5px';
-                deleteBtn.onclick = function() {
-                    imgContainer.remove();
-                    removeFile(index);
-                };
-                imgContainer.appendChild(img);
-                imgContainer.appendChild(deleteBtn);
-                preview.appendChild(imgContainer);
+                const imgContainer = $('<div>', {
+                    class: 'm-2',
+                    css: {
+                        position: 'relative',
+                        width: 'calc(25% - 16px)',
+                        flexBasis: '25%'
+                    }
+                });
+
+                const img = $('<img>', {
+                    src: e.target.result,
+                    class: 'img-thumbnail',
+                    css: {
+                        width: '100%',
+                        height: 'auto'
+                    }
+                });
+
+                const deleteBtn = $('<button>', {
+                    text: 'X',
+                    class: 'btn btn-danger btn-sm',
+                    css: {
+                        position: 'absolute',
+                        top: '5px',
+                        right: '5px'
+                    },
+                    click: function() {
+                        imgContainer.remove();
+                        updateFileList(file);
+                    }
+                });
+
+                imgContainer.append(img).append(deleteBtn);
+                preview.append(imgContainer);
             };
             reader.readAsDataURL(file);
         });
     }
 
-    function removeFile(indexToRemove) {
-        const input = document.getElementById('images');
+    function updateFileList(fileToRemove) {
+        const input = $('#images')[0];
         const files = Array.from(input.files);
 
         // Create a new DataTransfer object
         const dataTransfer = new DataTransfer();
 
-        // Add all files except the one at the index to remove
-        files.forEach((file, index) => {
-            if (index !== indexToRemove) {
+        // Add all files except the one to remove
+        files.forEach(file => {
+            if (file !== fileToRemove) {
                 dataTransfer.items.add(file);
             }
         });
@@ -102,4 +129,23 @@
         // Update the input with the new FileList
         input.files = dataTransfer.files;
     }
+
+    function updateContentAndTotalPrice() {
+        // Count non-empty lines in content textarea
+        let contentCount = $('#content').val().split('\n').filter(line => $.trim(line) !== "").length;
+        console.log(contentCount);
+        $('#content_count').text(contentCount);
+        // Calculate total price
+        let price = parseFloat($('#price').val()) || 0;
+        let totalMoney = price * contentCount;
+        $('#total_money').val(totalMoney);
+        $('#total_price').text(totalMoney >= 0 ? totalMoney.toLocaleString('vi-VN') + 'đ' : 'Không hợp lệ');
+    }
+
+    $(document).ready(function() {
+        // Run the update function once on page load
+        updateContentAndTotalPrice();
+        // Attach the function to input events
+        $('#content').on('input', updateContentAndTotalPrice);
+    });
 </script>

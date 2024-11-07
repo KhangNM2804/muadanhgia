@@ -39,9 +39,15 @@
                 @error('content')
                     <div class="text-danger">{{ $message }}</div>
                 @enderror
-                <small class="form-text text-muted">Số lượng nội dung: <span id="content_count">0</span></small>
-            </div>
 
+            </div>
+            <div class="text-center">
+                <span class="badge badge-warning">Số lượng từ khoá: <span id="content_count">0</span></span>
+                <p class="text-danger font-weight-bold mt-2">Chú ý từ khoá trên khi tìm kiếm cần xuất hiện Maps của bạn
+                </p>
+                <p class="text-danger">Hệ thống phân bổ lượt truy cập rải đều lên danh sách từ khoá trên để tạo sự tự
+                    nhiên cho Maps của bạn</p>
+            </div>
             <!-- Notes -->
             <div class="form-group">
                 <label for="note" class="text-primary">Ghi chú:</label>
@@ -69,9 +75,9 @@
     </div>
 </div>
 
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
 <script>
-    function updateContentAndTotalPrice() {
+    function updateContentAndTotalPrice5S() {
         // Count non-empty lines in content textarea
         let contentCount = $('#content').val().split('\n').filter(line => $.trim(line) !== "").length;
         $('#content_count').text(contentCount);
@@ -80,14 +86,14 @@
         let totalQuantity = parseInt($('#total_quantity').val()) || 0;
         let totalMoney = price * totalQuantity;
         $('#total_money').val(totalMoney);
-        $('#total_price').text(totalMoney > 0 ? totalMoney.toLocaleString('vi-VN') + 'đ' : 'Không hợp lệ');
+        $('#total_price').text(totalMoney >= 0 ? totalMoney.toLocaleString('vi-VN') + 'đ' : 'Không hợp lệ');
     }
 
     $(document).ready(function() {
         // Run the update function once on page load
-        updateContentAndTotalPrice();
+        updateContentAndTotalPrice5S();
 
         // Attach the function to input events
-        $('#content, #total_quantity').on('input', updateContentAndTotalPrice);
+        $('#content, #total_quantity').on('input', updateContentAndTotalPrice5S);
     });
 </script>
