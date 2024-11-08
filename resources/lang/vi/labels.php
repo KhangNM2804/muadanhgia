@@ -128,5 +128,17 @@ return [
     'report_review' => 'Report Review',
     'create_map' => 'Tạo Map',
     'note_type' => 'Chú ý',
-    'create_orders' => 'Tạo đơn'
+    'create_orders' => 'Tạo đơn',
+    'type_order' => 'Loại đơn',
+    'code' => 'Mã đơn',
+    'link' => 'Liên kết',
+    'total_money' => 'Tổng tiền',
+    'total_quantity' => 'Tổng số lượng',
+    'quantity_run' => 'Số lượng chạy',
+    'content' => 'Nội dung',
+    'note' => 'Ghi chú',
+    'images' => 'Hình ảnh',
+    'price' => 'Giá',
+    'status' => 'Trạng thái',
+    'created_at' => 'Ngày tạo'
 ];

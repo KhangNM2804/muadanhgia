@@ -51,6 +51,7 @@ Route::middleware('auth', '2fa', 'user_has_block')->group(function () {
     });
     Route::get('orders/{path}', [OrderController::class, 'create'])->name('orders.create');
     Route::post('orders/{path}', [OrderController::class, 'store'])->name('orders.store');
+    Route::get('history_buy', [OrderController::class, 'history_buy'])->name('history_buy');
     Route::middleware('can:admin_role')->group(function () {
         Route::get('users', [HomeController::class, 'listUser'])->name('listUser');
         Route::get('users/export_excel', [HomeController::class, 'user_export_excel'])->name('user_export_excel');
@@ -137,7 +138,7 @@ Route::middleware('auth', '2fa', 'user_has_block')->group(function () {
         Route::get('buy_all', [HomeController::class, 'buy_all'])->name('buy_all');
     });
     Route::post('category/buy', [CategoryController::class, 'ajax_buy'])->name('ajax_buy');
-    Route::get('history_buy', [CategoryController::class, 'history_buy'])->name('history_buy');
+    // Route::get('history_buy', [CategoryController::class, 'history_buy'])->name('history_buy'); cũ
     Route::get('don-hang/{id}', [CategoryController::class, 'don_hang'])->name('don_hang');
     Route::get('naptien', [MomoController::class, 'naptien'])->name('naptien');
     Route::get('lichsunap', [HomeController::class, 'lichsunap'])->name('lichsunap');
