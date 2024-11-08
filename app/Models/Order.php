@@ -32,4 +32,23 @@ class Order extends Model
     protected $attributes = [
         'status' => self::STATUS_PENDING,
     ];
+    protected $appends = ['status_label'];
+    public function type()
+    {
+        return $this->belongsTo(TypeOrder::class, 'type_order_id');
+    }
+
+
+    public function getStatusLabelAttribute()
+    {
+        $statusMap = [
+            self::STATUS_PENDING => '<span class="badge badge-warning">Chờ duyệt</span>',
+            self::STATUS_PROCESSING => '<span class="badge badge-info">Đang xử lý</span>',
+            self::STATUS_CANCELLED => '<span class="badge badge-danger">Đã huỷ</span>',
+            self::STATUS_REFUNDED => '<span class="badge badge-primary">Đã hoàn tiền</span>',
+            self::STATUS_COMPLETED => '<span class="badge badge-success">Đã hoàn thành</span>',
+        ];
+
+        return $statusMap[$this->status] ?? '<span class="badge badge-secondary">Không rõ</span>';
+    }
 }

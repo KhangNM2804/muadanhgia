@@ -204,7 +204,7 @@ class OrderController extends Controller
             'price' => $request->price,
             'total_money' => $request->total_money,
             'total_quantity' => $request->total_quantity,
-            'content' => $request->content,
+            'content' => json_encode(explode("\r\n", $request->content))
         ];
         $tru_tien = deduct_money('Tạo đơn report map', $data['total_money'], 'Mua thành công đơn hàng ' . $data['code'], 'OrderController.php line 209');
         if (!$tru_tien) {
@@ -214,5 +214,39 @@ class OrderController extends Controller
         Order::create($data);
         DB::commit();
         return redirect()->back()->with('success', 'Đơn hàng được tạo thành công!');
+    }
+    public function history_buy(Request $request)
+    {
+        $user = Auth::user();
+
+        // Nhận các tham số từ request
+        $code = $request->input('code');
+        $typeOrderId = $request->input('type_order_id');
+        $perPage = $request->input('per_page', 10); // Số lượng dòng mặc định là 10
+        $dateFrom = $request->input('date_from');
+        $dateTo = $request->input('date_to');
+        // Tạo truy vấn với điều kiện lọc và tìm kiếm
+        $query = Order::with(['type'])
+            ->where('user_id', $user->id)
+            ->orderBy('created_at', 'desc');
+
+        if ($code) {
+            $query->where('code', 'like', '%' . $code . '%');
+        }
+
+        if ($typeOrderId && in_array($typeOrderId, range(1, 5))) {
+            $query->where('type_order_id', $typeOrderId);
+        }
+        if ($dateFrom) {
+            $query->whereDate('created_at', '>=', $dateFrom);
+        }
+
+        if ($dateTo) {
+            $query->whereDate('created_at', '<=', $dateTo);
+        }
+        // Phân trang với số lượng dòng tùy chỉnh
+        $getHistoryBuy = $query->paginate($perPage);
+
+        return view('orders.history_buy', compact('getHistoryBuy'));
     }
 }
